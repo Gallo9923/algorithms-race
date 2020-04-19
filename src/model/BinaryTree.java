@@ -111,8 +111,23 @@ public class BinaryTree implements Algorithms {
 
 	@Override
 	public boolean queryIterative(int num) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		Node curr = root;
+		boolean found = false; 
+		
+		while(curr != null && !found) {
+			
+			if(num == curr.getValue()) {
+				found = true;
+			}else if(num <= curr.getValue()) {
+				curr = curr.getLeft();
+			}else {
+				curr = curr.getRight();
+			}
+			
+		}
+	
+		return found;
 	}
 
 
