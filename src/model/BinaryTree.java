@@ -1,5 +1,7 @@
 package model;
 
+import org.omg.CORBA.Current;
+
 public class BinaryTree implements Algorithms {
 	
 	//Attributes
@@ -15,6 +17,44 @@ public class BinaryTree implements Algorithms {
 
 	@Override
 	public void addIterative(int num) {
+		
+		Node curr = root;
+		Node newNode = new Node(num);
+		
+		if(curr == null) {
+			
+			root = newNode;
+			
+		}else {
+			
+			while(curr != null) {
+				
+				if(num <= curr.getValue()) {
+				
+					if(curr.getLeft() == null) {
+						curr.setLeft(newNode);
+						newNode.setParent(curr);
+						
+					}else {
+						curr = curr.getLeft();
+					}
+					
+				}else {	
+					
+					if(curr.getRight() == null) {
+						curr.setRight(newNode);
+						newNode.setParent(curr);
+						
+					}else {
+						curr = curr.getRight();
+					}
+				}
+			}
+		}
+		
+		
+		
+		
 		
 	}
 
