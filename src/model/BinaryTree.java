@@ -21,10 +21,39 @@ public class BinaryTree implements Algorithms {
 
 	@Override
 	public void addRecursive(int num) {
-		// TODO Auto-generated method stub
+
+		if(root ==null) {
+			root = new Node(num);
+		}else {
+			addRecursive(root, num);
+		}
 		
 	}
-
+	
+	private void addRecursive(Node curr, int num) {
+		if (num <= curr.getValue()) {
+            
+            Node left = curr.getLeft();
+            
+            if(left == null){
+                curr.setLeft(new Node(num));
+                curr.getLeft().setParent(curr);
+            }else{
+                addRecursive(left, num);
+            }
+            
+        }else{
+            
+            Node right = curr.getRight();
+    
+            if(right == null){
+                curr.setRight(new Node(num));
+                curr.getRight().setParent(curr);
+            }else{
+                addRecursive(right, num);
+            }
+        }
+	}
 
 	@Override
 	public void deleteIterative() {

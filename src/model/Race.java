@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Race {
 	
@@ -19,16 +20,27 @@ public class Race {
 		arrayList = new CArrayList();
 		linkedList = new LinkedList();
 		
-		
+		generateRandomList(n);
 	}
 	
 	//Methods
 	
 	private void generateRandomList(int n) {
 		
+		Random r = new Random();
+		int rNum;
 		
+		for(int i=0; i<n; i++) {
+			rNum = r.nextInt(n);
+			numberList.add(rNum);
+			
+			rNum = r.nextInt(n);
+			queryList.add(rNum);
+		}
+
 	}
 	
+
 	
 	
 }
