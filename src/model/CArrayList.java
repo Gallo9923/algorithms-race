@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CArrayList implements Algorithms {
 	
@@ -9,43 +10,56 @@ public class CArrayList implements Algorithms {
 	
 	//Constructor
 	public CArrayList() {
-		arrayList = new ArrayList<Double>();
+		arrayList = new ArrayList<Long>();
 	}
 	
 	//Methods
 	
 	@Override
-	public void addIterative(int num) {
+	public void addIterative(long num) {
+		
+		Random r = new Random();
+	
+		for(int i=0; i<num; i++) {
+			arrayList.add(r.nextInt());
+		}
+		
+	}
+
+	@Override
+	public void addRecursive(long num) {
+		
+		Random r = new Random();
+		
+		if(arrayList.size() != num) {
+			arrayList.add(r.nextInt());
+			addRecursive(num);
+		}
+		
+	}
+	
+
+	@Override
+	public void deleteIterative(long num) {
+		
+		
+		
+	}
+
+	@Override
+	public void deleteRecursive(long num) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void addRecursive(int num) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteIterative() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteRecursive() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean queryIterative(int num) {
+	public boolean queryIterative(long num) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean queryRecursive(int num) {
+	public boolean queryRecursive(long num) {
 		// TODO Auto-generated method stub
 		return false;
 	}

@@ -3,13 +3,13 @@ package model;
 public class Node {
 	
 	//Attributes
-	private int value;
+	private long value;
 	private Node left;
 	private Node right;
 	private Node parent;
 	
 	//Constructor
-	public Node(int value) {
+	public Node(long value) {
 		this.value = value;
 		this.left = null;
 		this.right = null;
@@ -17,6 +17,12 @@ public class Node {
 	}
 
 	//Getters & Setters
+	
+	@Override
+	public String toString() {
+		return value + "";
+	}
+	
 	
 	public Node getLeft() {
 		return left;
@@ -34,11 +40,11 @@ public class Node {
 		this.right = right;
 	}
 
-	public int getValue() {
+	public long getValue() {
 		return value;
 	}
 
-	public void setValue(int value) {
+	public void setValue(long value) {
 		this.value = value;
 	}
 

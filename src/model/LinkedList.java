@@ -14,37 +14,37 @@ public class LinkedList implements Algorithms{
 	//Methods
 	
 	@Override
-	public void addIterative(int num) {
+	public void addIterative(long num) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void addRecursive(int num) {
+	public void addRecursive(long num) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteIterative() {
+	public void deleteIterative(long num) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteRecursive() {
+	public void deleteRecursive(long num) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public boolean queryIterative(int num) {
+	public boolean queryIterative(long num) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean queryRecursive(int num) {
+	public boolean queryRecursive(long num) {
 		// TODO Auto-generated method stub
 		return false;
 	}
