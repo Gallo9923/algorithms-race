@@ -240,9 +240,10 @@ public class BinaryTree implements Algorithms {
 
 			if (num == curr.getValue()) {
 				deleteNode(curr);
+
 			} else if (num <= curr.getValue()) {
-				
 				deleteRecursive(curr.getLeft(), num);
+
 			} else {
 				deleteRecursive(curr.getRight(), num);
 			}

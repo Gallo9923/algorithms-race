@@ -6,7 +6,7 @@ import java.util.Random;
 public class CArrayList implements Algorithms {
 	
 	//Attributes
-	private ArrayList arrayList;
+	private ArrayList<Long> arrayList;
 	
 	//Constructor
 	public CArrayList() {
@@ -21,18 +21,17 @@ public class CArrayList implements Algorithms {
 		Random r = new Random();
 	
 		for(int i=0; i<num; i++) {
-			arrayList.add(r.nextInt());
+			arrayList.add(r.nextLong());
 		}
 		
 	}
 
 	@Override
 	public void addRecursive(long num) {
-		
 		Random r = new Random();
 		
 		if(arrayList.size() != num) {
-			arrayList.add(r.nextInt());
+			arrayList.add(r.nextLong());
 			addRecursive(num);
 		}
 		
@@ -64,4 +63,14 @@ public class CArrayList implements Algorithms {
 		return false;
 	}
 
+	public ArrayList<Long> getArrayList() {
+		return arrayList;
+	}
+
+	public void setArrayList(ArrayList<Long> arrayList) {
+		this.arrayList = arrayList;
+	}
+
+		
+	
 }
