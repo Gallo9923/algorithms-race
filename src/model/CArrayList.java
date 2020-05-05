@@ -18,22 +18,14 @@ public class CArrayList implements Algorithms {
 	@Override
 	public void addIterative(long num) {
 		
-		Random r = new Random();
-	
-		for(int i=0; i<num; i++) {
-			arrayList.add(r.nextLong());
-		}
+		arrayList.add(num);
 		
 	}
 
 	@Override
 	public void addRecursive(long num) {
-		Random r = new Random();
-		
-		if(arrayList.size() != num) {
-			arrayList.add(r.nextLong());
-			addRecursive(num);
-		}
+
+		arrayList.add(num);
 		
 	}
 	
@@ -41,13 +33,34 @@ public class CArrayList implements Algorithms {
 	@Override
 	public void deleteIterative(long num) {
 		
+		boolean found = false;
 		
+		for(int i=0; i<arrayList.size() && found == false; i++) {
+			
+			if(arrayList.get(i) == num) {
+				arrayList.remove(i);
+				found = true;
+			}
+			
+		}
 		
 	}
 
 	@Override
 	public void deleteRecursive(long num) {
-		// TODO Auto-generated method stub
+		
+		int i = 0;
+		boolean found = false;
+		
+		while(i < arrayList.size() && found == false) {
+			
+			if(arrayList.get(i) == num) {
+				arrayList.remove(i);
+				found = true;
+			}
+			
+			i++;
+		}
 		
 	}
 
