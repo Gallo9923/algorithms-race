@@ -3,12 +3,12 @@ package model;
 public class Element {
 	
 	//Attributes
-	private double value;
+	private long value;
 	private Element next;
 	private Element prev;
 	
 	//Constructor
-	public Element(double value) {
+	public Element(long value) {
 		this.value = value;
 		this.next = null;
 		this.prev = null;
@@ -16,11 +16,11 @@ public class Element {
 	
 	//Getters & Setters
 	
-	public double getValue() {
+	public long getValue() {
 		return value;
 	}
 
-	public void setValue(double value) {
+	public void setValue(long value) {
 		this.value = value;
 	}
 

@@ -114,5 +114,38 @@ public class CArrayListTest {
 		assertTrue(al.getArrayList().equals(AL2));
 	}
 	
+	@Test
+	public void queryIterativeTest() {
+		
+		ArrayListWithElements();
+		
+		ArrayList<Long> AL2 = new ArrayList<Long>();
+		AL2.add(Long.MAX_VALUE);
+		AL2.add((long)0);
+		
+		//Case 1
+		assertTrue(al.queryIterative(Long.MIN_VALUE));
+		//Case 2
+		assertFalse(al.queryIterative((long)50));
+		
+	}
+	
+	@Test
+	public void queryRecursiveTest() {
+		
+		ArrayListWithElements();
+		
+		ArrayList<Long> AL2 = new ArrayList<Long>();
+		AL2.add(Long.MAX_VALUE);
+		AL2.add((long)0);
+		
+		//Case 1
+		assertTrue(al.queryRecursive(Long.MIN_VALUE));
+		//Case 2
+		assertFalse(al.queryRecursive((long)50));
+		
+	}
+	
+	
 	
 }
