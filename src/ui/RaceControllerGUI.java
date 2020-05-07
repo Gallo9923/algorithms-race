@@ -101,9 +101,13 @@ public class RaceControllerGUI {
 	}
 	
 	public void updateALTime(long t2) {
-		ABBTime.setText(timeFormatter(t2 - t1));
+		ALTime.setText(timeFormatter(t2 - t1));
 	}
-
+	
+	public void updateLETime(long t2) {
+		LLTime.setText(timeFormatter(t2-t1));
+	}
+	
 	public String timeFormatter(long millis) {
 
 		// TODO make the formatter in HH:MM:SS
