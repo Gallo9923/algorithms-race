@@ -14,7 +14,9 @@ public class Main extends Application{
 	
 	public Main() {
 		
-		race = new Race();
+		long seed = 1; //TODO change to a random seed
+		
+		race = new Race(seed);
 		controller = new RaceControllerGUI(race);
 		
 	}

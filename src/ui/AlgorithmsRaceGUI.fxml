@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -15,7 +16,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -40,7 +40,7 @@
                               <Insets right="20.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField GridPane.columnIndex="1">
+                        <TextField fx:id="txtN" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets right="20.0" />
                            </GridPane.margin>
@@ -77,8 +77,11 @@
                            <GridPane.margin>
                               <Insets left="20.0" />
                            </GridPane.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="algorithm" />
+                           </toggleGroup>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Search" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                        <RadioButton mnemonicParsing="false" text="Search" toggleGroup="$algorithm" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets left="20.0" />
                            </GridPane.margin>
@@ -86,7 +89,7 @@
                               <Font size="18.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Delete" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                        <RadioButton mnemonicParsing="false" text="Delete" toggleGroup="$algorithm" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets left="20.0" />
                            </GridPane.margin>
@@ -106,8 +109,11 @@
                            <GridPane.margin>
                               <Insets left="20.0" />
                            </GridPane.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="mode" />
+                           </toggleGroup>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Recursive" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <RadioButton mnemonicParsing="false" text="Recursive" toggleGroup="$mode" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -115,7 +121,7 @@
                               <Insets left="20.0" />
                            </GridPane.margin>
                         </RadioButton>
-                        <Button mnemonicParsing="false" text="Run!" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Button mnemonicParsing="false" onAction="#startRace" text="Run!" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -193,9 +199,9 @@
                                     <Label text="ArrayList" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                     <Label text="LinkedList" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                     <Label text="ABB" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                                    <Label text="{Time}" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                                    <Label text="{Time}" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                                    <Label text="{TIme}" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                    <Label fx:id="ALTime" text="{Time}" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                    <Label fx:id="LLTime" text="{Time}" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                    <Label fx:id="ABBTime" text="{TIme}" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                                  </children>
                               </GridPane>
                               <Label text="Final Results">
