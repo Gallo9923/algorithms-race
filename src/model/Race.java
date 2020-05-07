@@ -11,17 +11,13 @@ public class Race {
 	private LinkedList linkedList;
 	
 	//Constructor
-	public Race(int n) {
+	public Race() {
 		binaryTree = new BinaryTree();
 		arrayList = new CArrayList();
 		linkedList = new LinkedList();
 
 	}
 	
-	public void addIterative(int num) {
-		
-				
-	}
 	
 	/*
 	public void addIterativeAL(int num) {
