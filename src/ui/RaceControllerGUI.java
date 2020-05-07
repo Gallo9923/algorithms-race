@@ -26,16 +26,20 @@ public class RaceControllerGUI {
 	private ToggleGroup mode;
 
 	@FXML
-    private Label ALTime;
+	private Label ALTime;
 
-    @FXML
-    private Label LLTime;
+	@FXML
+	private Label LLTime;
 
-    @FXML
-    private Label ABBTime;
-	
+	@FXML
+	private Label ABBTime;
+
 	private Race race;
 	private long t1;
+
+	boolean ABBFinished = false;
+	boolean LLFinished = false;
+	boolean ALFinished = false;
 	
 	public RaceControllerGUI(Race race) {
 		this.race = race;
@@ -43,40 +47,35 @@ public class RaceControllerGUI {
 
 	@FXML
 	void startRace(ActionEvent event) {
-		
+
 		RadioButton item;
 		int n = 0;
-		
+
 		try {
 			n = Integer.parseInt(txtN.getText());
-		
-		
-		
-		item = (RadioButton)algorithm.getSelectedToggle();
-		String algorithmType = (item!= null ? item.getText() : null); 
-		
-		item = (RadioButton)mode.getSelectedToggle();
-		String algorithmMode = (item != null ? item.getText() : null);
-		
-		if(n <= 0 || algorithmMode == null || algorithmType == null) {
-			missingFieldsAlert();
-		
-		}else {
-			
-			ABBThread abbThread = new ABBThread(race, this, algorithmType, algorithmMode, n);
-			abbThread.start();
-			
-			
-		}
-		
-		}catch(NumberFormatException e) {
+
+			item = (RadioButton) algorithm.getSelectedToggle();
+			String algorithmType = (item != null ? item.getText() : null);
+
+			item = (RadioButton) mode.getSelectedToggle();
+			String algorithmMode = (item != null ? item.getText() : null);
+
+			if (n <= 0 || algorithmMode == null || algorithmType == null) {
+				missingFieldsAlert();
+
+			} else {
+				
+				ABBThread abbThread = new ABBThread(race, this, algorithmType, algorithmMode, n);
+				abbThread.start();
+
+			}
+
+		} catch (NumberFormatException e) {
 			numberFormatExceptionAlert();
 		}
-		
-		
-		
+
 	}
-	
+
 	public void numberFormatExceptionAlert() {
 		ButtonType ok = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
 		Alert alert = new Alert(AlertType.INFORMATION, "Please digit a valid number", ok);
@@ -85,7 +84,7 @@ public class RaceControllerGUI {
 
 		alert.showAndWait();
 	}
-	
+
 	public void missingFieldsAlert() {
 		ButtonType ok = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
 		Alert alert = new Alert(AlertType.INFORMATION, "Please fill all fields and an N bigger than 0", ok);
@@ -94,18 +93,22 @@ public class RaceControllerGUI {
 
 		alert.showAndWait();
 	}
-	
+
 	public void updateABBTime(long t2) {
-		
-		ABBTime.setText(timeFormatter(t2-t1));
-		
+
+		ABBTime.setText(timeFormatter(t2 - t1));
+
 	}
 	
+	public void updateALTime(long t2) {
+		ABBTime.setText(timeFormatter(t2 - t1));
+	}
+
 	public String timeFormatter(long millis) {
-		
-		//TODO make the formatter in HH:MM:SS
-		
+
+		// TODO make the formatter in HH:MM:SS
+
 		return millis + "";
 	}
-	
+
 }

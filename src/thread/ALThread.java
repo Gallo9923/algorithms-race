@@ -4,7 +4,7 @@ import javafx.application.Platform;
 import model.Race;
 import ui.RaceControllerGUI;
 
-public class ABBThread extends Thread {
+public class ALThread extends Thread {
 
 	private Race race;
 	private RaceControllerGUI controller;
@@ -13,38 +13,38 @@ public class ABBThread extends Thread {
 	private int n;
 	private long t2;
 
-	public ABBThread(Race race, RaceControllerGUI controller, String algorithmType, String algorithmMode, int n) {
+	public ALThread(Race race, RaceControllerGUI controller, String algorithmType, String algorithmMode, int n) {
 		this.race = race;
 		this.controller = controller;
 		this.algorithmType = algorithmType;
 		this.algorithmMode = algorithmMode;
 		this.n = n;
 	}
-
+	
 	public void run() {
 
 		if (algorithmType.equalsIgnoreCase("ADD")) {
 
 			if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
-				t2 = race.addIterativeABB(n);
+				t2 = race.addIterativeAL(n);
 			} else {
-				t2 = race.addRecursiveABB(n);
+				t2 = race.addRecursiveAL(n);
 			}
 
 		} else if (algorithmType.equalsIgnoreCase("SEARCH")) {
 
 			if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
-				t2 = race.queryIterativeABB(n);
+				t2 = race.queryIterativeAL(n);
 			} else {
-				t2 = race.queryRecursiveABB(n);
+				t2 = race.queryRecursiveAL(n);
 			}
 
 		} else {
 
 			if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
-				t2 = race.deleteIterativeABB(n);
+				t2 = race.deleteIterativeAL(n);
 			} else {
-				t2 = race.deleteRecursiveABB(n);
+				t2 = race.deleteRecursiveAL(n);
 			}
 
 		}
@@ -52,9 +52,10 @@ public class ABBThread extends Thread {
 		Platform.runLater(new Thread() {
 			@Override
 			public void run() {
-				controller.updateABBTime(t2);
+				controller.updateALTime(t2);
 			}
 		});
 
 	}
+
 }
