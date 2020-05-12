@@ -1,6 +1,5 @@
 package thread;
 
-import javafx.application.Platform;
 import model.Race;
 import ui.RaceControllerGUI;
 
@@ -11,7 +10,9 @@ public class ABBThread extends Thread {
 	private String algorithmType;
 	private String algorithmMode;
 	private int n;
-	private long t2;
+	private boolean started = false;
+
+	private boolean lost = false;
 
 	public ABBThread(Race race, RaceControllerGUI controller, String algorithmType, String algorithmMode, int n) {
 		this.race = race;
@@ -23,38 +24,95 @@ public class ABBThread extends Thread {
 
 	public void run() {
 
-		if (algorithmType.equalsIgnoreCase("ADD")) {
-
-			if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
-				t2 = race.addIterativeABB(n);
+		ALThread al = new ALThread(race, controller, algorithmType, algorithmMode, n, this);
+		
+		try {
+		
+			if (algorithmType.equalsIgnoreCase("ADD")) {
+	
+				al.start();
+	
+				if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
+					race.addIterativeABB(n);
+				} else {
+					race.addRecursiveABB(n);
+				}
+	
+			} else if (algorithmType.equalsIgnoreCase("SEARCH")) {
+	
+				initializeRace();
+				al.start();
+				
+				if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
+					race.queryIterativeABB(n);
+				} else {
+					race.queryRecursiveABB(n);
+				}
+	
 			} else {
-				t2 = race.addRecursiveABB(n);
+	
+				initializeRace();
+				al.start();
+	
+				if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
+					race.deleteIterativeABB(n);
+				} else {
+					race.deleteRecursiveABB(n);
+				}
+	
+			}
+		}catch(StackOverflowError e) {
+			lost = true;
+			System.out.println("ABB LOST");
+		}
+	}
+
+	public void initializeRace() {
+
+		Thread abbInit = new Thread() {
+			public void run() {
+				race.addIterativeABB(n);
+				race.setBinaryTreeN(0);
+			}
+		};
+
+		Thread alInit = new Thread() {
+
+			public void run() {
+				race.addIterativeAL(n);
+				race.setArrayListN(0);
 			}
 
-		} else if (algorithmType.equalsIgnoreCase("SEARCH")) {
+		};
 
-			if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
-				t2 = race.queryIterativeABB(n);
-			} else {
-				t2 = race.queryRecursiveABB(n);
+		Thread llInit = new Thread() {
+			public void run() {
+
+				race.addIterativeLE(n);
+				race.setLinkedListN(0);
 			}
+		};
 
-		} else {
+		abbInit.start();
+		alInit.start();
+		llInit.start();
 
-			if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
-				t2 = race.deleteIterativeABB(n);
-			} else {
-				t2 = race.deleteRecursiveABB(n);
-			}
+		try {
+			abbInit.join();
+			alInit.join();
+			llInit.join();
+			System.out.println("Started");
+		} catch (InterruptedException e) {
 
+			e.printStackTrace();
 		}
 
-		Platform.runLater(new Thread() {
-			@Override
-			public void run() {
-				controller.updateABBTime(t2);
-			}
-		});
-
 	}
+
+	public boolean isLost() {
+		return lost;
+	}
+	
+	
+
 }

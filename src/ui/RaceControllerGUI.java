@@ -6,11 +6,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.shape.Circle;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import model.Race;
 import thread.ABBThread;
 
@@ -18,6 +20,12 @@ public class RaceControllerGUI {
 
 	@FXML
 	private TextField txtN;
+
+	@FXML
+	private Button bttStart;
+
+	@FXML
+	private Label LabelTimeKeeper;
 
 	@FXML
 	private ToggleGroup algorithm;
@@ -34,13 +42,29 @@ public class RaceControllerGUI {
 	@FXML
 	private Label ABBTime;
 
-	private Race race;
-	private long t1;
+	@FXML
+	private ProgressBar alBar;
 
-	boolean ABBFinished = false;
-	boolean LLFinished = false;
-	boolean ALFinished = false;
-	
+	@FXML
+	private ProgressBar llBar;
+
+	@FXML
+	private ProgressBar abbBar;
+
+	@FXML
+	private Circle circleBig;
+
+	@FXML
+	private Circle circleSmall;
+
+	private boolean isGrowing = false;
+
+	public static final double RADIUS_STEP = 0.01;
+
+	private Race race;
+
+	int n = 0;
+
 	public RaceControllerGUI(Race race) {
 		this.race = race;
 	}
@@ -49,7 +73,7 @@ public class RaceControllerGUI {
 	void startRace(ActionEvent event) {
 
 		RadioButton item;
-		int n = 0;
+		n = 0;
 
 		try {
 			n = Integer.parseInt(txtN.getText());
@@ -64,8 +88,12 @@ public class RaceControllerGUI {
 				missingFieldsAlert();
 
 			} else {
-				
+
+				bttStart.setDisable(true);
+				txtN.setDisable(true);
+
 				ABBThread abbThread = new ABBThread(race, this, algorithmType, algorithmMode, n);
+				abbThread.setDaemon(true);
 				abbThread.start();
 
 			}
@@ -74,6 +102,11 @@ public class RaceControllerGUI {
 			numberFormatExceptionAlert();
 		}
 
+	}
+
+	public void reEnable() {
+		bttStart.setDisable(false);
+		txtN.setDisable(false);
 	}
 
 	public void numberFormatExceptionAlert() {
@@ -94,25 +127,82 @@ public class RaceControllerGUI {
 		alert.showAndWait();
 	}
 
-	public void updateABBTime(long t2) {
+	public void updateTimeKeeper(long duration) {
+		LabelTimeKeeper.setText(timeFormatter(duration));
+	}
 
-		ABBTime.setText(timeFormatter(t2 - t1));
+	public void updateABB(long duration, int progress, boolean lost) {
+
+		if (lost == false) {
+			ABBTime.setText(timeFormatter(duration));
+			abbBar.setProgress((double) progress / n);
+		} else {
+			ABBTime.setText("LOST");
+		}
 
 	}
-	
-	public void updateALTime(long t2) {
-		ALTime.setText(timeFormatter(t2 - t1));
-	}
-	
-	public void updateLETime(long t2) {
-		LLTime.setText(timeFormatter(t2-t1));
-	}
-	
-	public String timeFormatter(long millis) {
 
-		// TODO make the formatter in HH:MM:SS
+	public void updateAL(long duration, int progress, boolean lost) {
 
-		return millis + "";
+		if (lost == false) {
+			ALTime.setText(timeFormatter(duration));
+			alBar.setProgress((double) progress / n);
+		} else {
+			ALTime.setText("LOST");
+		}
+
+	}
+
+	public void updateLE(long duration, int progress, boolean lost) {
+
+		if (lost == false) {
+			LLTime.setText(timeFormatter(duration));
+			llBar.setProgress((double) progress / n);
+		} else {
+			LLTime.setText("LOST");
+		}
+
+	}
+
+	public String timeFormatter(long duration) {
+
+		long milliseconds = duration % 1000;
+		long seconds = (duration / 1000) % 60;
+		long minutes = (duration / 60000) % 60;
+		String sMil = milliseconds < 10 ? ("00" + milliseconds)
+				: milliseconds < 100 ? ("0" + milliseconds) : ("" + milliseconds);
+		String sSec = seconds < 10 ? ("0" + seconds) : ("" + seconds);
+		String sMin = minutes < 10 ? ("0" + minutes) : ("" + minutes);
+
+		return sMin + ":" + sSec + ":" + sMil;
+	}
+
+	public void updateCircles() {
+		
+		if (circleBig.getRadius() <= 25) {
+			isGrowing = true;
+		} else if (circleBig.getRadius() >= 50) {
+			isGrowing = false;
+		}
+		
+		if(circleBig.getRadius() > circleSmall.getRadius()) {
+			circleSmall.toFront();
+		}else {
+			circleBig.toFront();
+		}
+
+		if (isGrowing == false) {
+
+			circleBig.setRadius(circleBig.getRadius() - RADIUS_STEP);
+			circleSmall.setRadius(circleSmall.getRadius() + RADIUS_STEP);
+
+		} else {
+			
+			circleBig.setRadius(circleBig.getRadius() + RADIUS_STEP);
+			circleSmall.setRadius(circleSmall.getRadius() - RADIUS_STEP);
+	
+		}
+
 	}
 
 }

@@ -1,60 +1,76 @@
 package thread;
 
-import javafx.application.Platform;
 import model.Race;
 import ui.RaceControllerGUI;
 
-public class LLThread extends Thread{
-	
+public class LLThread extends Thread {
+
 	private Race race;
 	private RaceControllerGUI controller;
 	private String algorithmType;
 	private String algorithmMode;
 	private int n;
-	private long t2;
+	
+	private boolean lost = false;
 
-	public LLThread(Race race, RaceControllerGUI controller, String algorithmType, String algorithmMode, int n) {
+	private ABBThread abbThread;
+	private ALThread alThread;
+	
+	public LLThread(Race race, RaceControllerGUI controller, String algorithmType, String algorithmMode, int n, ABBThread abbThread, ALThread alThread) {
 		this.race = race;
 		this.controller = controller;
 		this.algorithmType = algorithmType;
 		this.algorithmMode = algorithmMode;
 		this.n = n;
+		
+		this.abbThread = abbThread;
+		this.alThread = alThread;
+		
+	}
+
+	public void run() {
+		
+		UpdateThread updateThread = new UpdateThread(race, controller, n, abbThread, alThread, this);
+		updateThread.start();
+		
+		try {
+		
+			if (algorithmType.equalsIgnoreCase("ADD")) {
+	
+				if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
+					race.addIterativeLE(n);
+				
+				} else {
+					race.addRecursiveLE(n);
+				}
+	
+			} else if (algorithmType.equalsIgnoreCase("SEARCH")) {
+	
+				if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
+					race.queryIterativeLE(n);
+				} else {
+					race.queryRecursiveLE(n);
+				}
+	
+			} else {
+	
+				if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
+					race.deleteIterativeLE(n);
+				} else {
+					race.deleteRecursiveLE(n);
+				}
+	
+			}
+		}catch(StackOverflowError e) {
+			lost = true;
+			System.out.println("LL LOST");
+		}
+	
+	}
+
+	public boolean isLost() {
+		return lost;
 	}
 	
-	public void run() {
-
-		if (algorithmType.equalsIgnoreCase("ADD")) {
-
-			if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
-				t2 = race.addIterativeLE(n);
-			} else {
-				t2 = race.addRecursiveLE(n);
-			}
-
-		} else if (algorithmType.equalsIgnoreCase("SEARCH")) {
-
-			if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
-				t2 = race.queryIterativeLE(n);
-			} else {
-				t2 = race.queryRecursiveLE(n);
-			}
-
-		} else {
-
-			if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
-				t2 = race.deleteIterativeLE(n);
-			} else {
-				t2 = race.deleteRecursiveLE(n);
-			}
-
-		}
-
-		Platform.runLater(new Thread() {
-			@Override
-			public void run() {
-				controller.updateLETime(t2);
-			}
-		});
-
-	}
+	
 }

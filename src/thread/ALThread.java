@@ -1,6 +1,5 @@
 package thread;
 
-import javafx.application.Platform;
 import model.Race;
 import ui.RaceControllerGUI;
 
@@ -11,51 +10,63 @@ public class ALThread extends Thread {
 	private String algorithmType;
 	private String algorithmMode;
 	private int n;
-	private long t2;
+	
+	private boolean lost = false;
 
-	public ALThread(Race race, RaceControllerGUI controller, String algorithmType, String algorithmMode, int n) {
+	private ABBThread abbThread;
+	
+	public ALThread(Race race, RaceControllerGUI controller, String algorithmType, String algorithmMode, int n, ABBThread abbThread) {
 		this.race = race;
 		this.controller = controller;
 		this.algorithmType = algorithmType;
 		this.algorithmMode = algorithmMode;
 		this.n = n;
+		
+		this.abbThread = abbThread;
 	}
 	
 	public void run() {
-
-		if (algorithmType.equalsIgnoreCase("ADD")) {
-
-			if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
-				t2 = race.addIterativeAL(n);
+		
+		LLThread llThread = new LLThread(race, controller, algorithmType, algorithmMode, n, abbThread, this);
+		llThread.start();
+		
+		try { 
+		
+			if (algorithmType.equalsIgnoreCase("ADD")) {
+	
+				if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
+					race.addIterativeAL(n);
+				} else {
+					race.addRecursiveAL(n);
+				}
+	
+			} else if (algorithmType.equalsIgnoreCase("SEARCH")) {
+	
+				if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
+					race.queryIterativeAL(n);
+				} else {
+					race.queryRecursiveAL(n);
+				}
+	
 			} else {
-				t2 = race.addRecursiveAL(n);
+	
+				if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
+					race.deleteIterativeAL(n);
+				} else {
+					race.deleteRecursiveAL(n);
+				}
+	
 			}
-
-		} else if (algorithmType.equalsIgnoreCase("SEARCH")) {
-
-			if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
-				t2 = race.queryIterativeAL(n);
-			} else {
-				t2 = race.queryRecursiveAL(n);
-			}
-
-		} else {
-
-			if (algorithmMode.equalsIgnoreCase("ITERATIVE")) {
-				t2 = race.deleteIterativeAL(n);
-			} else {
-				t2 = race.deleteRecursiveAL(n);
-			}
-
+		}catch(StackOverflowError e) {
+			lost = true;
+			System.out.println("AL LOST");
 		}
-
-		Platform.runLater(new Thread() {
-			@Override
-			public void run() {
-				controller.updateALTime(t2);
-			}
-		});
-
 	}
 
+	public boolean isLost() {
+		return lost;
+	}
+	
+	
+	
 }

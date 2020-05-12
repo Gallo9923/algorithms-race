@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Race {
@@ -24,13 +23,12 @@ public class Race {
 		this.secondSeed = secondSeed;	
 		
 		binaryTreeN = 0;
-		arrayListN = 0;
 		linkedListN = 0;
 	}
 
 	// Add Iterative Methods
 	
-	public long addIterativeAL(int n) {
+	public void addIterativeAL(int n) {
 
 		Random r = new Random(firstSeed);
 
@@ -40,11 +38,9 @@ public class Race {
 			arrayListN++;
 		}
 
-		return System.currentTimeMillis();
-
 	}
 
-	public long addIterativeLE(int n) {
+	public void addIterativeLE(int n) {
 
 		Random r = new Random(firstSeed);
 
@@ -53,12 +49,10 @@ public class Race {
 			linkedList.addIterative(num);
 			linkedListN++;
 		}
-
 		
-		return System.currentTimeMillis();
 	}
 
-	public long addIterativeABB(int n) {
+	public void addIterativeABB(int n) {
 
 		Random r = new Random(firstSeed);
 
@@ -67,14 +61,12 @@ public class Race {
 			binaryTree.addIterative(num);
 			binaryTreeN++;
 		}
-
-		return System.currentTimeMillis();
 		
 	}
 
 	// Add Recursive Methods
 	
-	public long addRecursiveAL(int n) {
+	public void addRecursiveAL(int n) {
 		
 		Random r = new Random(firstSeed);
 
@@ -84,10 +76,9 @@ public class Race {
 			arrayListN++;
 		}
 		
-		return System.currentTimeMillis();
 	}
 
-	public long addRecursiveLE(int n) {
+	public void addRecursiveLE(int n) {
 
 		Random r = new Random(firstSeed);
 
@@ -97,10 +88,10 @@ public class Race {
 			linkedListN++;
 		}
 		
-		return System.currentTimeMillis();
+	
 	}
 
-	public long addRecursiveABB(int n) {
+	public void addRecursiveABB(int n) {
 		
 		Random r = new Random(firstSeed);
 
@@ -110,12 +101,11 @@ public class Race {
 			binaryTreeN++;
 		}
 		
-		return System.currentTimeMillis();
 	}
 
 	// Delete Iterative Methods
 	
-	public long deleteIterativeAL(int n) {
+	public void deleteIterativeAL(int n) {
 		
 		Random r = new Random(secondSeed);
 
@@ -125,10 +115,9 @@ public class Race {
 			arrayListN++;
 		}
 		
-		return System.currentTimeMillis();
 	}
 
-	public long deleteIterativeLE(int n) {
+	public void deleteIterativeLE(int n) {
 		
 		Random r = new Random(secondSeed);
 
@@ -138,10 +127,10 @@ public class Race {
 			linkedListN++;
 		}
 		
-		return System.currentTimeMillis();
+	
 	}
 
-	public long deleteIterativeABB(int n) {
+	public void deleteIterativeABB(int n) {
 
 		Random r = new Random(secondSeed);
 
@@ -151,12 +140,12 @@ public class Race {
 			binaryTreeN++;
 		}
 		
-		return System.currentTimeMillis();
+		
 	}
 
 	//Delete Recursive Methods
 	
-	public long deleteRecursiveAL(int n) {
+	public void deleteRecursiveAL(int n) {
 		Random r = new Random(secondSeed);
 
 		for (int i = 0; i < n; i++) {
@@ -164,10 +153,10 @@ public class Race {
 			arrayList.deleteRecursive(num);
 			arrayListN++;
 		}
-		return System.currentTimeMillis();
+		
 	}
 
-	public long deleteRecursiveLE(int n) {
+	public void deleteRecursiveLE(int n) {
 		Random r = new Random(secondSeed);
 
 		for (int i = 0; i < n; i++) {
@@ -175,10 +164,10 @@ public class Race {
 			linkedList.deleteRecursive(num);
 			linkedListN++;
 		}
-		return System.currentTimeMillis();
+		
 	}
 
-	public long deleteRecursiveABB(int n) {
+	public void deleteRecursiveABB(int n) {
 		
 		Random r = new Random(secondSeed);
 
@@ -188,12 +177,11 @@ public class Race {
 			binaryTreeN++;
 		}
 		
-		return System.currentTimeMillis();
 	}
 
 	// Query Iterative Methods
 	
-	public long queryIterativeAL(int n) {
+	public void queryIterativeAL(int n) {
 		
 		Random r = new Random(secondSeed);
 
@@ -203,10 +191,9 @@ public class Race {
 			arrayListN++;
 		}
 		
-		return System.currentTimeMillis();
 	}
 
-	public long queryIterativeLE(int n) {
+	public void queryIterativeLE(int n) {
 		
 		Random r = new Random(secondSeed);
 
@@ -216,10 +203,9 @@ public class Race {
 			linkedListN++;
 		}
 		
-		return System.currentTimeMillis();
 	}
 
-	public long queryIterativeABB(int n) {
+	public void queryIterativeABB(int n) {
 
 		Random r = new Random(secondSeed);
 
@@ -229,12 +215,12 @@ public class Race {
 			binaryTreeN++;
 		}
 		
-		return System.currentTimeMillis();
+		
 	}
 
 	// Query Recursive Methods
 	
-	public long queryRecursiveAL(int n) {
+	public void queryRecursiveAL(int n) {
 		
 		Random r = new Random(secondSeed);
 
@@ -244,10 +230,10 @@ public class Race {
 			arrayListN++;
 		}
 		
-		return System.currentTimeMillis();
+	
 	}
 
-	public long queryRecursiveLE(int n) {
+	public void queryRecursiveLE(int n) {
 		
 		Random r = new Random(secondSeed);
 
@@ -257,10 +243,10 @@ public class Race {
 			linkedListN++;
 		}
 		
-		return System.currentTimeMillis();
+		
 	}
 
-	public long queryRecursiveABB(int n) {
+	public void queryRecursiveABB(int n) {
 
 		Random r = new Random(secondSeed);
 
@@ -270,7 +256,47 @@ public class Race {
 			binaryTreeN++;
 		}
 		
-		return System.currentTimeMillis();
+		
 	}
 
+	public BinaryTree getBinaryTree() {
+		return binaryTree;
+	}
+
+	public CArrayList getArrayList() {
+		return arrayList;
+	}
+
+	public LinkedList getLinkedList() {
+		return linkedList;
+	}
+
+	public int getBinaryTreeN() {
+		return binaryTreeN;
+	}
+
+	public int getArrayListN() {
+		return arrayListN;
+	}
+
+	public int getLinkedListN() {
+		return linkedListN;
+	}
+
+	public void setBinaryTreeN(int binaryTreeN) {
+		this.binaryTreeN = binaryTreeN;
+	}
+
+	public void setArrayListN(int arrayListN) {
+		this.arrayListN = arrayListN;
+	}
+
+	public void setLinkedListN(int linkedListN) {
+		this.linkedListN = linkedListN;
+	}
+
+	
+	
+	
+	
 }
