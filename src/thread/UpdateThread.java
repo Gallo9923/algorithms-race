@@ -8,7 +8,7 @@ public class UpdateThread extends Thread{
 
 	private Race race;
 	private RaceControllerGUI controller;
-	private int n;
+	//private int n;
 	
 	private ABBThread abbThread; 
 	private ALThread alThread; 
@@ -29,7 +29,7 @@ public class UpdateThread extends Thread{
 	public UpdateThread(Race race, RaceControllerGUI controller, int n, ABBThread abbThread, ALThread alThread, LLThread llThread) {
 		this.race = race;
 		this.controller = controller;
-		this.n = n;
+		//this.n = n;
 		
 		this.abbThread = abbThread;
 		this.alThread = alThread;
@@ -38,7 +38,7 @@ public class UpdateThread extends Thread{
 	}
 
 	public void run() {
-
+		
 		long t1 = System.currentTimeMillis();
 		
 		
@@ -84,7 +84,7 @@ public class UpdateThread extends Thread{
 			});
 			
 			try {
-				Thread.sleep(1);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				
 				e.printStackTrace();

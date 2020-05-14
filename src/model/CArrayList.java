@@ -1,7 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Random;
+
 
 public class CArrayList implements Algorithms {
 

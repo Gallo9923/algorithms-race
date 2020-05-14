@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.shape.Circle;
 import javafx.scene.control.Alert.AlertType;
@@ -59,7 +60,7 @@ public class RaceControllerGUI {
 
 	private boolean isGrowing = false;
 
-	public static final double RADIUS_STEP = 0.01;
+	public static final double RADIUS_STEP = 0.1;
 
 	private Race race;
 
@@ -91,6 +92,18 @@ public class RaceControllerGUI {
 
 				bttStart.setDisable(true);
 				txtN.setDisable(true);
+				
+				for (Toggle t : mode.getToggles()) {  
+		            if (t instanceof RadioButton) {  
+		                ((RadioButton) t).setDisable(true);  
+		            }  
+				}
+				
+				for (Toggle t : algorithm.getToggles()) {  
+		            if (t instanceof RadioButton) {  
+		                ((RadioButton) t).setDisable(true);  
+		            }  
+				}
 
 				ABBThread abbThread = new ABBThread(race, this, algorithmType, algorithmMode, n);
 				abbThread.setDaemon(true);
@@ -107,6 +120,19 @@ public class RaceControllerGUI {
 	public void reEnable() {
 		bttStart.setDisable(false);
 		txtN.setDisable(false);
+		
+		for (Toggle t : mode.getToggles()) {  
+            if (t instanceof RadioButton) {  
+                ((RadioButton) t).setDisable(false);  
+            }  
+		}
+		
+		for (Toggle t : algorithm.getToggles()) {  
+            if (t instanceof RadioButton) {  
+                ((RadioButton) t).setDisable(false);  
+            }  
+		}
+		
 	}
 
 	public void numberFormatExceptionAlert() {
@@ -204,5 +230,25 @@ public class RaceControllerGUI {
 		}
 
 	}
+	
+	public void initializeGUI() {
+		
+		//Circle animation
+		circleBig.setRadius(50);
+		circleSmall.setRadius(25);
+		
+		//Chronometers
+		LLTime.setText("00:00:000");
+		ABBTime.setText("00:00:000");
+		ALTime.setText("00:00:000");
+		LabelTimeKeeper.setText("00:00:000");
+		
+		//ProgressBars
+		llBar.setProgress(0);
+		abbBar.setProgress(0);
+		alBar.setProgress(0);
+		
+	}
+	
 
 }

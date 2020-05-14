@@ -1,5 +1,6 @@
 package thread;
 
+import javafx.application.Platform;
 import model.Race;
 import ui.RaceControllerGUI;
 
@@ -10,7 +11,7 @@ public class ABBThread extends Thread {
 	private String algorithmType;
 	private String algorithmMode;
 	private int n;
-	private boolean started = false;
+	//private boolean started = false;
 
 	private boolean lost = false;
 
@@ -24,6 +25,13 @@ public class ABBThread extends Thread {
 
 	public void run() {
 
+		Platform.runLater(new Thread() {
+			@Override
+			public void run() {
+				controller.initializeGUI();
+			}
+		});
+		
 		ALThread al = new ALThread(race, controller, algorithmType, algorithmMode, n, this);
 		
 		try {
@@ -101,7 +109,9 @@ public class ABBThread extends Thread {
 			abbInit.join();
 			alInit.join();
 			llInit.join();
-			System.out.println("Started");
+			
+			//controller.blockButtons();
+			
 		} catch (InterruptedException e) {
 
 			e.printStackTrace();

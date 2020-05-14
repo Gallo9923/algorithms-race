@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import com.sun.org.apache.bcel.internal.generic.LLOAD;
 
 public class LinkedListTest {
 
