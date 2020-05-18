@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class BinaryTree implements Algorithms {
 
 	// Attributes
@@ -16,19 +15,20 @@ public class BinaryTree implements Algorithms {
 
 	// Methods
 
-	/*
-	 * public static void main(String[] args) {
-	 * 
-	 * BinaryTree abb = new BinaryTree();
-	 * 
-	 * abb.addIterative(0); abb.addIterative(-30); abb.addIterative(30);
-	 * abb.addIterative(25);
-	 * 
-	 * System.out.println(abb.preorder().toString());
-	 * 
-	 * 
-	 * }
-	 */
+//	public static void main(String[] args) {
+//
+//		BinaryTree abb = new BinaryTree();
+//
+//		abb.addIterative(0);
+//		abb.addIterative(2);
+////		abb.addIterative(-30);
+////		abb.addIterative(30);
+////		abb.addIterative(25);
+//		abb.deleteIterative(0);
+//
+//		System.out.println(abb.preOrder().toString());
+//
+//	}
 
 	// Recorrer preorden
 	public List<Node> preOrder() {
@@ -178,7 +178,7 @@ public class BinaryTree implements Algorithms {
 
 	private void deleteNode(Node node) {
 
-		if (node.getLeft() != null && node.getRight() != null) { // Case: Node has two child nodes
+		if (node.getLeft() != null && node.getRight() != null) { // Case 1: Node has two child nodes
 
 			Node parent = node.getParent();
 			Node maximum = maximumNode(node.getLeft());
@@ -201,22 +201,26 @@ public class BinaryTree implements Algorithms {
 				}
 			}
 
-		} else if (node.getLeft() != null || node.getRight() != null) { // Case: Node has one child node
+		} else if (node.getLeft() != null || node.getRight() != null) { // Case 2: Node has one child node
 
 			Node parent = node.getParent();
 			Node newNode = (node.getLeft() != null ? node.getLeft() : node.getRight());
 
-			if (parent.getLeft() != null && parent.getLeft().equals(node)) {
+			if (parent == null) {
+				root = newNode;
+			} else if (parent.getLeft() != null && parent.getLeft().equals(node)) {
 				parent.setLeft(newNode);
 			} else {
 				parent.setRight(newNode);
 			}
 
-		} else { // Case: Node is a leaf
+		} else { // Case 3: Node is a leaf
 
 			Node parent = node.getParent();
 
-			if (parent.getLeft() != null && parent.getLeft().equals(node)) {
+			if (parent == null) {
+				root = null;
+			} else if (parent.getLeft() != null && parent.getLeft().equals(node)) {
 				parent.setLeft(null);
 			} else {
 				parent.setRight(null);
